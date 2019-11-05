@@ -14,4 +14,38 @@ class RecipeTest < Minitest::Test
   def test_it_exists
     assert_instance_of Recipe, @mac_and_cheese
   end
+
+  def test_it_initializes
+    assert_equal "Mac and Cheese", @mac_and_cheese.name
+  end
+
+  def test_starts_with_no_ingredients
+    assert_equal 0, @mac_and_cheese.ingredients_required.size
+  end
+
+  def test_it_can_add_ingredients
+    @mac_and_cheese.add_ingredient(@cheese, 2)
+    @mac_and_cheese.add_ingredient(@mac, 8)
+    assert_equal 2, @mac_and_cheese.ingredients_required.size
+  end
+
+  def test_it_can_access_amount_required
+    @mac_and_cheese.add_ingredient(@cheese, 2)
+    @mac_and_cheese.add_ingredient(@mac, 8)
+    assert_equal 2, @mac_and_cheese.amount_required(@cheese)
+    assert_equal 8, @mac_and_cheese.amount_required(@mac)
+  end
+
+  def test_it_can_get_ingredients
+    @mac_and_cheese.add_ingredient(@cheese, 2)
+    @mac_and_cheese.add_ingredient(@mac, 8)
+    assert_equal 2, @mac_and_cheese.ingredients.size
+    assert_equal [@cheese, @mac], @mac_and_cheese.ingredients
+  end
+
+  def test_it_can_total_calories
+    @mac_and_cheese.add_ingredient(@cheese, 2)
+    @mac_and_cheese.add_ingredient(@mac, 8)
+    assert_equal 440, @mac_and_cheese.total_calories
+  end
 end
